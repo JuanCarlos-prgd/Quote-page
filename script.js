@@ -18,22 +18,26 @@ try {
 const priceHigh= response.DISPLAY[cryptoSelected][coinSelected].HIGH24HOUR;
 const priceLow= response.DISPLAY[cryptoSelected][coinSelected].LOW24HOUR;
 const variation= response.DISPLAY [cryptoSelected][coinSelected].CHANGEPCT24HOUR;
-console.log (coinInfo)
+ console.log(response.RAW[cryptoSelected][coinSelected].PRICE);
 
-    coinInfo.innerHTML = `
-         <p class="info"> El precio es: <span class="price">${price}</span></p>
-                <p class="info"> El precio más alto es: <span class="price">${priceHigh}</span></p>
-                <p class="info"> El precio más bajo es: <span class="price">${priceLow}</span></p>
-                <p class="info"> Variación 24 horas: <span class="price">${variation}%</span></p>
-                <p class="info"> Puedes comprar: <span class="price"> </span></p>
-                `;
- } catch (error){
- }
+        if (amountValue !== '') {
+            const result = Number(amountValue) / response.RAW[cryptoSelected][coinSelected].PRICE;
+            coinInfo.innerHTML = `
+        <p class="info">El precio es: <span class="price">${price}</span></p>
+        <p class="info">El precio mas alto es: <span class="price">${priceHigh}</span></p>
+        <p class="info">El precio mas bajo es: <span class="price">${priceLow}</span></p>
+        <p class="info">Variacion 24H: <span class="price">${variation}%</span></p>
+        <p class="info">Puede comprar: <span class="price">${result.toFixed(4)} ${cryptoSelected}</span></p>
+        `;
+        } else {
+            coinInfo.innerHTML = `
+            <p class="info">El precio es: <span class="price">${price}</span></p>
+            <p class="info">El precio mas alto es: <span class="price">${priceHigh}</span></p>
+            <p class="info">El precio mas bajo es: <span class="price">${priceLow}</span></p>
+            <p class="info">Variacion 24H: <span class="price">${variation}%</span></p>
+        `;
+        }
+    } catch (error) {
+        console.log(error);
+    }
 });
-
-
-
-// 3. Funcion de cotizacion 
-
-
-// 4. Actualizar HTML con la cotizacion 
